@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (password_verify($login_password, $hashed_password_from_db)) {
                     $_SESSION['user_id'] = $row["id"];
                     $_SESSION['username'] = $row["username"];
-                    header("Location: home.html");
+                    header("Location: Trailblaze\map\index.html");
                     exit();
                 } else {
                     $error = "Incorrect password.";
