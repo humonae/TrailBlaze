@@ -1,0 +1,13 @@
+.parkBody{
+    margin:auto;
+}
+.navbar-nav .nav-item:not(:last-child) {
+    border-right: 2px solid #000; /* Vertical line between items */
+    padding-right: 10px; /* Optional: space between text and line */
+  }
+
+#jumbo {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
