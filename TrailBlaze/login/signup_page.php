@@ -10,7 +10,8 @@
 <body>
 
 <div class="container">
-    <h1>Sign Up</h1>
+    <h1>Welcome to TrailBlaze</h1>
+    <h2>Sign Up</h2>
     <?php
     session_start();
     if (isset($_SESSION['signup_errors']) && !empty($_SESSION['signup_errors'])) {
@@ -40,6 +41,14 @@
         <div class="form-group">
             <label for="reEnterPass">Re-enter your password:</label><br>
             <input type="password" id="reEnterPass" name="confirm_password" required>
+        </div>
+        <div class="password-requirements">
+            <p>Password must meet the following requirements:</p>
+            <ul>
+                <li>Must be at least 6 characters long.</li>
+                <li>Must contain at least one uppercase letter (A-Z).</li>
+                <li>Must contain at least one symbol (!@#$%^&*).</li>
+            </ul>
         </div>
         <button type="submit" class="btn">Sign Up</button>
         <p>Already have an account? <a href="login_page.php">Log in here</a></p>
