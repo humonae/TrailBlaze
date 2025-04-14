@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <!-- Bootstrap CSS -->
+            <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+            
+            <!--Scripts-->
+            <script src="../js/NPS.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            <link rel="stylesheet" href="styles.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script>
+                async function load() {
+                    const bgImages = {
+                        "EVER": "https://img.freepik.com/free-photo/boat-forest-river-blue-sky-reflection_1150-10799.jpg?t=st=1744290583~exp=1744294183~hmac=4bdb405c3bbe2b1ef2f05ec0287192c5893d2d521186a6bdcae2a4567b8753ac&w=1380", 
+                        "BISC": "https://www.nps.gov/npgallery/GetAsset/ccb7c72d-1dd8-b71b-0b2a-e3c9a3d5b103/proxy/hires?", 
+                        "DRTO": "https://www.drytortugas.com/wp-content/uploads/2020/02/dry-tortugas.jpg", 
+                        "CANA": "https://www.nps.gov/cana/planyourvisit/images/IMG_0029_5.JPG", 
+                        "DESO": "", 
+                        "TIMU": "https://www.nps.gov/npgallery/GetAsset/f7cfa68c-1dd8-b71b-0b80-cbfa6517143e/proxy/hires?", 
+                        "BICY": "https://www.nps.gov/npgallery/GetAsset/cfc3173a-87db-4f05-b1eb-d23c2cea04ca/proxy/hires?", 
+                        "GUIS": "https://www.nps.gov/npgallery/GetAsset/ed4925d0-bd02-4e33-9ecc-ef5597ff4c1e/proxy/hires?", 
+                        "FOMA": ""
+                    }
+                    const parks = await fetchParks();
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const code = urlParams.get('parkCode');
+                    const park = parks[code];
+                    console.log(code);
+                    console.log("ok:",park)
+                    $( document ).ready(function() {
+                        $("#jumbo").css({
+                        "background-image": 'url("' + bgImages[code] + '")',});
+                        $("#name").text(parks[code].fullName);
+                        $("#about").html("About " + parks[code].fullName);
+                        $("#description").html("&nbsp;&nbsp;&nbsp;&nbsp" + parks[code].description);
+                        $("#designation").text(parks[code].designation);
+                    
+                        const carouselInner = $("#carouselExample .carousel-inner");
+                        parks[code].images.forEach((image, index) => {
+                            // Create a new carousel item
+                            const isActive = index === 0 ? "active" : ""; // Make the first item active
+                            const carouselItem = `
+                                <div class="carousel-item ${isActive}">
+                                    <img style="carousel-img" src="${image.url}" class="d-block w-100" alt="${image.altText}">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>${image.caption}</h5>
+                                    </div>
+                                </div>
+                            `;
+                            carouselInner.append(carouselItem);  // Append to the carousel-inner
+                        });
+                    
+                    });
+                }
+                load();
+            </script>
+
+            <title>TrailBlaze</title>
+
+        </head>
+
+        <body>
+            <nav class="navbar justify-content-center">TrailBlaze</nav>
+
+            <div id="jumbo" class="jumbotron text-center justify-content-center">
+                <h3 class="display-6 text-align-center" style="color: white;">FLORIDA'S NATIONAL PARKS</h3>
+                <h1 id="name" style="color: white;" class="display-1 text-align-center"></h1>
+                <p id="designation" style="color: white;" class="lead" ><b></b></p>
+                <div>
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light" style=" margin:auto; max-width: fit-content">
+                        <ul class="navbar-nav d-flex flex-row flex-nowrap">
+                          <li class=""> <!--nav-item active-->
+                            <a class="nav-link" href="#">EVERGLADES</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">BISCAYNE</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">DRY TORTUGAS</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">CANAVERAL</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">BIG CYPRESS</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">TIMUCUAN</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">DE SOTO</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">GULF ISLANDS</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">FORT MATANZAS</a>
+                          </li>
+                        </ul>
+                      </nav>
+                </div>
+            </div>
+           
+             <div class="parkBody" style="max-width: 45%; margin:auto;"> 
+                <!-- Description -->
+                <section>
+                    <h3 id="about"></h3>
+                    <p id="description"style=""></p>
+                </section>
+                <div id="alert"></div>
+                <!-- Gallery -->
+                <section>
+                    <h3>Gallery</h3>
+                    <div id="carouselExample" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                        </div>
+                        <!-- Controls -->
+                        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        </div>
+                </section>
+
+                <section>
+                    <h3>Things to Do</h3>
+                    <div>
+                        Coming Soon
+                        <div>
+                        
+                        </div>
+                        <div>
+                            
+                        </div>
+                        <div>
+                            
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Plan Your Visit</h2>
+                    <p> Coming Soon</p>
+                </section>
+                
+                <button type="button" class="btn btn-primary">Favorite</button>
+
+             </div>
+
+</div>
+        </body>
+    </html>

@@ -1,0 +1,81 @@
+body {
+  background-image: url("../palms_nighttime.jpg");
+  background-color: #dee3df;
+}
+
+.div-map {
+  background-color: #ecf5e4;
+  margin: auto;
+  height: 95vh;
+  width: 70%;
+  padding: 20px;
+}
+
+#map {
+  height: 90vh;
+  width: 90%;
+  margin: auto;
+}
+
+.navbar-green {
+  height: 5vh;
+  background-color: #63966d;
+}
+
+.navbar-nav {
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.navbar .nav-item {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.navbar-toggler-icon {
+  color: white;
+}
+
+#info-window {
+  width: 30%;
+  height: 95vh;
+  float: left;
+  background: #f0f0f0;
+  padding: 20px;
+  display: none;
+}
+
+#info-window h2 {
+  margin-top: 0;
+}
+
+.div-saved {
+  background-color: #ecf5e4;
+  margin:auto;
+  min-height: 95vh;
+  width: 70%;
+  padding: 20px;
+}
+
+.div-box {
+  border: solid black 1px;
+  border-radius: 5px;
+  background-color: white;
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 25px;
+}
+
+button {
+  padding: 5px 8px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
