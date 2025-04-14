@@ -1,5 +1,5 @@
 body {
-    background-image: url("../img/forest-bg.png");
+    background-image: url("../img/forest-bg.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -8,12 +8,12 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
+    margin-top: 20px;
 }
 
 .container {
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 25px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 400px;
@@ -21,9 +21,13 @@ body {
     text-align: center;
 }
 
-h1 {
+h1, h2 {
     color: white;
     margin-bottom: 20px;
+}
+
+h1 {
+    color: #63966d;
 }
 
 .form-group {
@@ -50,7 +54,7 @@ input[type="email"] {
 }
 
 .btn {
-    background-color: #2E6F40;
+    background-color: #63966d;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -62,7 +66,7 @@ input[type="email"] {
 }
 
 .btn:hover {
-    background-color: #68BA7F;
+    background-color: #2E6F40;
 }
 
 p {
@@ -72,12 +76,25 @@ p {
 }
 
 a {
-    color: #68BA7F;
+    color: #63966d;
     text-decoration: none;
 }
 
 a:hover {
     text-decoration: underline;
+}
+
+.password-requirements, .password-requirements p {
+    margin-top: 10px;
+    margin-bottom: 13px;
+    font-size: 0.9em;
+    color: white;
+    text-align: left;
+}
+
+.password-requirements ul {
+    padding-left: 20px;
+    margin-bottom: 0;
 }
 
 .error-message {
