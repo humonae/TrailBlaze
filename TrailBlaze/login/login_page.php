@@ -24,7 +24,8 @@
 </head>
 <body>
 <div class="container">
-    <h1>Login</h1>
+    <h1>TrailBlaze</h1>
+    <h2>Login</h2>
     <?php
     session_start();
     if (isset($_SESSION['login_error']) && !empty($_SESSION['login_error'])) {
