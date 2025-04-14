@@ -52,15 +52,25 @@
   
   <!-- Park Info Window -->
   <div id="info-window" style="position:relative;">
-    <i id='save-icon' class="fa fa-bookmark-o fa-2x"></i>
+	<?php if (isset($_SESSION['user_id'])): ?>
+	  
+	  <form action="save.php" method="POST">
+        <input type="hidden" id="bookmarker" name="park_code" value="code"> 
+        <button type="submit">
+          <i class="fa fa-bookmark-o fa-2x"></i>
+        </button>
+      </form>
+    <?php else: ?>
+      <a></a>
+    <?php endif; ?>
   	<button onclick="closeInfo()" style="position:absolute;top:15px;right:10px;">Close</button>
-    <h2 id="info-name"></h2>
+    <h2 id="info-name" style="margin-right:40px;"></h2>
 	<p id="info-content"></p>
 	<h3>Directions</h3>
 	<p id="info-directions"></p>
 	<h3>Availability</h3>
 	<p id="info-availability"></p>
-  <a id="link" href="" ><u>Learn more</u></a>
+  <a id="link" href=""><u>Learn more</u></a>
   </div>
 
   <!-- Bootstrap JS and Popper -->
