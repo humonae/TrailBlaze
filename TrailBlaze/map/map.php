@@ -53,7 +53,6 @@
   <!-- Park Info Window -->
   <div id="info-window" style="position:relative;">
 	<?php if (isset($_SESSION['user_id'])): ?>
-	  
 	  <form action="save.php" method="POST">
         <input type="hidden" id="bookmarker" name="park_code" value="code"> 
         <button type="submit">
@@ -61,7 +60,7 @@
         </button>
       </form>
     <?php else: ?>
-      <a></a>
+      <a><input type="hidden" id="bookmarker" name="park_code"></a>
     <?php endif; ?>
   	<button onclick="closeInfo()" style="position:absolute;top:15px;right:10px;">Close</button>
     <h2 id="info-name" style="margin-right:40px;"></h2>
