@@ -34,79 +34,11 @@
 
   <div class="div-saved">
   
-	<div class="div-box d-flex align-items-center">
-	  <!-- Image Icon on the left -->
-	  <a class="navbar-brand" href="#">
-	    <i class="fas fa-image fa-10x"></i> <!-- Font Awesome Icon with size -->
-	  </a>
-	  <!-- Text on the right -->
-	  <span class="ms-3">
-		<h1>Title</h1>
-		<p>Description</p>
-		<button>Button</button>
-	  </span>
-	</div>
-	
-	<div class="div-box d-flex align-items-center">
-	  <a class="navbar-brand" href="#">
-	    <i class="fas fa-image fa-10x"></i> 
-	  </a>
-	  <span class="ms-3">
-		<h1>Title</h1>
-		<p>Description</p>
-		<button>Button</button>
-	  </span>
-	</div>
-	
-	<div class="div-box d-flex align-items-center">
-	  <a class="navbar-brand" href="#">
-	    <i class="fas fa-image fa-10x"></i>
-	  </a>
-	  <span class="ms-3">
-		<h1>Title</h1>
-		<p>Description</p>
-		<button>Button</button>
-	  </span>
-	</div>
-	
-	<div class="div-box d-flex align-items-center">
-	  <a class="navbar-brand" href="#">
-	    <i class="fas fa-image fa-10x"></i>
-	  </a>
-	  <span class="ms-3">
-		<h1>Title</h1>
-		<p>Description</p>
-		<button>Button</button>
-	  </span>
-	</div>
-	
-	<div class="div-box d-flex align-items-center">
-	  <a class="navbar-brand" href="#">
-	    <i class="fas fa-image fa-10x"></i>
-	  </a>
-	  <span class="ms-3">
-		<h1>Title</h1>
-		<p>Description</p>
-		<button>Button</button>
-	  </span>
-	</div>
-	
-	<div class="div-box d-flex align-items-center">
-	  <a class="navbar-brand" href="#">
-	    <i class="fas fa-image fa-10x"></i>
-	  </a>
-	  <span class="ms-3">
-		<h1>Title</h1>
-		<p>Description</p>
-		<button>Button</button>
-	  </span>
-	</div>
+	<?php
+	require("getSaved.php");
+	?>
 	
   </div>
-
-  <!-- Bootstrap JS and Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>
