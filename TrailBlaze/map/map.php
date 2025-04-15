@@ -69,7 +69,7 @@
 	<p id="info-directions"></p>
 	<h3>Availability</h3>
 	<p id="info-availability"></p>
-  <a id="link" href=""><u>Learn more</u></a>
+  <a id="link" href="" target="_blank" rel="noopener noreferrer"><u>Learn more</u></a>
   </div>
 
   <!-- Bootstrap JS and Popper -->
