@@ -147,6 +147,9 @@ function closeInfo() {
 
 // Open the reviews window
 function openReviews(parkCode) {
+    if (document.getElementById('bookmarker').value !== null) {
+        document.getElementById('bookmarker').value = parkCode;
+    }
     document.getElementById('info-name').innerText = 'Reviews for Park: ' + parkCode;
     document.getElementById('info-content').innerHTML = `
         <div id="reviews-list">Loading reviews...</div>
