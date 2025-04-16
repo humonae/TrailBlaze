@@ -53,7 +53,7 @@ $conn->close();
     <script src="../js/NPS.js"></script> <!-- Include NPS.js -->
 </head>
 <body>
-    <h1>Your Saved Parks</h1>
+    <h1 style="text-align:center;">Your Saved Parks</h1>
     <div id="parksContainer">
         <?php foreach ($parkCodes as $parkCode): ?>
             <form method="POST" class="park-form" data-park-code="<?= $parkCode ?>" data-saved="true">
