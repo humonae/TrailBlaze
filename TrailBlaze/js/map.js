@@ -84,14 +84,171 @@ function getDesc(code) {
 
 // Open the info window
 function openInfo(parkCode) {
-  getDesc(parkCode);
-  document.getElementById('info-window').style.display = 'block';
-  document.getElementById('map-window').style.float = 'right';
+    getDesc(parkCode);
+    document.getElementById('info-window').style.display = 'block';
+    document.getElementById('map-window').style.float = 'right';
 
+    // Show relevant sections
+    const directions = document.getElementById('info-directions');
+    const directionsTitle = directions.previousElementSibling; // The <h3> element for "Directions"
+    const availability = document.getElementById('info-availability');
+    const availabilityTitle = availability.previousElementSibling; // The <h3> element for "Availability"
+    const link = document.getElementById('link');
+
+    if (directions) {
+        directions.style.display = 'block'; // Show directions content
+    }
+    if (directionsTitle) {
+        directionsTitle.style.display = 'block'; // Show directions title
+    }
+    if (availability) {
+        availability.style.display = 'block'; // Show availability content
+    }
+    if (availabilityTitle) {
+        availabilityTitle.style.display = 'block'; // Show availability title
+    }
+    if (link) {
+        link.style.display = 'block'; // Show link
+    }
 }
 
 // Close the info window
 function closeInfo() {
-  document.getElementById('info-window').style.display = 'none';
-  document.getElementById('map-window').style.float = 'none';
+    // Hide the info window
+    document.getElementById('info-window').style.display = 'none';
+    document.getElementById('map-window').style.float = 'none';
+
+    // Clear all content to reset the window
+    const directions = document.getElementById('info-directions');
+    const availability = document.getElementById('info-availability');
+    const link = document.getElementById('link');
+    const infoName = document.getElementById('info-name');
+    const infoContent = document.getElementById('info-content');
+
+    if (directions) {
+        directions.innerText = ''; // Clear directions content
+        directions.style.display = 'block'; // Reset display for next use
+    }
+    if (availability) {
+        availability.innerText = ''; // Clear availability content
+        availability.style.display = 'block'; // Reset display for next use
+    }
+    if (link) {
+        link.href = ''; // Clear link
+        link.style.display = 'block'; // Reset display for next use
+    }
+    if (infoName) {
+        infoName.innerText = ''; // Clear the title
+    }
+    if (infoContent) {
+        infoContent.innerHTML = ''; // Clear the main content
+    }
+}
+
+// Open the reviews window
+function openReviews(parkCode) {
+    document.getElementById('info-name').innerText = 'Reviews for Park: ' + parkCode;
+    document.getElementById('info-content').innerHTML = `
+        <div id="reviews-list">Loading reviews...</div>
+        <h3>Add a Review</h3>
+        <form id="review-form">
+            <textarea id="review-text" placeholder="Write your review here..." rows="4" style="width: 100%;"></textarea>
+            <button type="button" onclick="submitReview('${parkCode}')">Submit Review</button>
+        </form>
+    `;
+
+    // Hide irrelevant sections
+    const directions = document.getElementById('info-directions');
+    const directionsTitle = directions.previousElementSibling; // The <h3> element for "Directions"
+    const availability = document.getElementById('info-availability');
+    const availabilityTitle = availability.previousElementSibling; // The <h3> element for "Availability"
+    const link = document.getElementById('link');
+
+    if (directions) {
+        directions.style.display = 'none'; // Hide directions content
+    }
+    if (directionsTitle) {
+        directionsTitle.style.display = 'none'; // Hide directions title
+    }
+    if (availability) {
+        availability.style.display = 'none'; // Hide availability content
+    }
+    if (availabilityTitle) {
+        availabilityTitle.style.display = 'none'; // Hide availability title
+    }
+    if (link) {
+        link.style.display = 'none'; // Hide link
+    }
+
+    // Fetch reviews from the server
+    fetch(`map.php?action=getReviews&parkCode=${parkCode}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const reviews = data.reviews;
+                if (reviews.length > 0) {
+                    let reviewsHtml = '<ul>';
+                    reviews.forEach(review => {
+						const formattedDate = new Date(review.created_at).toLocaleDateString('en-US', {
+							year: 'numeric',
+							month: 'long',
+							day: 'numeric'
+						});
+						reviewsHtml += `<li><strong>${review.username}:</strong> ${review.review} <em>(${formattedDate})</em></li>`;
+					});
+                    reviewsHtml += '</ul>';
+                    document.getElementById('reviews-list').innerHTML = reviewsHtml;
+                } else {
+                    document.getElementById('reviews-list').innerText = 'No reviews available for this park.';
+                }
+            } else {
+                document.getElementById('reviews-list').innerText = 'Failed to load reviews.';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching reviews:', error);
+            document.getElementById('reviews-list').innerText = 'An error occurred while fetching reviews.';
+        });
+
+    document.getElementById('info-window').style.display = 'block';
+    document.getElementById('map-window').style.float = 'right';
+}
+
+// Submit a review
+function submitReview(parkCode) {
+    const reviewText = document.getElementById('review-text').value.trim();
+    if (!reviewText) {
+        alert('Please write a review before submitting.');
+        return;
+    }
+
+    fetch('map.php?action=addReview', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            parkCode: parkCode,
+            review: reviewText,
+        }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Review submitted successfully!');
+                openReviews(parkCode); // Reload reviews
+            } else {
+                alert('Failed to submit review.');
+            }
+        })
+        .catch(error => {
+            console.error('Error submitting review:', error);
+            alert('An error occurred while submitting your review.');
+        });
+}
+
+// Close the reviews window
+function closeReviews() {
+	document.getElementById('info-window').style.display = 'none';
+	document.getElementById('map-window').style.float = 'none';
 }
