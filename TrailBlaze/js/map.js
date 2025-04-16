@@ -154,6 +154,7 @@ function openReviews(parkCode) {
     document.getElementById('info-content').innerHTML = `
         <div id="reviews-list">Loading reviews...</div>
         <h3>Add a Review</h3>
+	<p>*Must be logged in</p>
         <form id="review-form">
             <textarea id="review-text" placeholder="Write your review here..." rows="4" style="width: 100%;"></textarea>
             <button type="button" onclick="submitReview('${parkCode}')">Submit Review</button>
