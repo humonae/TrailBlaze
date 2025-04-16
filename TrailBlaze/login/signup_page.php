@@ -8,9 +8,8 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
 <div class="container">
-    <h1>Welcome to TrailBlaze</h1>
+    <h1>TrailBlaze</h1>
     <h2>Sign Up</h2>
     <?php
     session_start();
@@ -51,7 +50,7 @@
             </ul>
         </div>
         <button type="submit" class="btn">Sign Up</button>
-        <p>Already have an account? <a href="login_page.php">Log in here</a></p>
+        <p>Already have an account? <a href="login_page.php" class="a1">Log in here</a></p>
         <div id="signupError" class="error-message" style="display:none;"></div>
     </form>
 </div>
