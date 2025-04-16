@@ -158,25 +158,25 @@ if (isset($_GET['action'])) {
 
     // Add markers to the map
     L.marker([25.97, -81.08]).addTo(map)
-      .bindPopup('<b>Big Cyrpress National Preserve</b><br>This is BICY.<br><button onclick="openInfo(\'BICY\')">Info</button><button onclick="openReviews(\'BICY\')">Reviews</button>');
+      .bindPopup('<b>Big Cyrpress National Preserve</b><br>Park Code: BICY<br><button onclick="openInfo(\'BICY\')">Info</button> <button onclick="openReviews(\'BICY\')">Reviews</button>');
     L.marker([25.49, -80.21]).addTo(map)
-      .bindPopup('<b>Biscayne National Park</b><br>This is BISC.<br><button onclick="openInfo(\'BISC\')">Info</button><button onclick="openReviews(\'BISC\')">Reviews</button>');
+      .bindPopup('<b>Biscayne National Park</b><br>Park Code: BISC<br><button onclick="openInfo(\'BISC\')">Info</button> <button onclick="openReviews(\'BISC\')">Reviews</button>');
     L.marker([28.79, -80.75]).addTo(map)
-      .bindPopup('<b>Canaveral National Seashore</b><br>This is CANA.<br><button onclick="openInfo(\'CANA\')">Info</button><button onclick="openReviews(\'CANA\')">Reviews</button>');
+      .bindPopup('<b>Canaveral National Seashore</b><br>Park Code: CANA<br><button onclick="openInfo(\'CANA\')">Info</button> <button onclick="openReviews(\'CANA\')">Reviews</button>');
     L.marker([29.90, -81.31]).addTo(map)
-      .bindPopup('<b>Castillo de San Marcos National Monument</b><br>This is CASA.<br><button onclick="openInfo(\'CASA\')">Info</button><button onclick="openReviews(\'CASA\')">Reviews</button>');
+      .bindPopup('<b>Castillo de San Marcos National Monument</b><br>Park Code: CASA<br><button onclick="openInfo(\'CASA\')">Info</button> <button onclick="openReviews(\'CASA\')">Reviews</button>');
     L.marker([27.52, -82.64]).addTo(map)
-      .bindPopup('<b>De Soto National Memorial</b><br>This is DESO.<br><button onclick="openInfo(\'DESO\')">Info</button><button onclick="openReviews(\'DESO\')">Reviews</button>');
+      .bindPopup('<b>De Soto National Memorial</b><br>Park Code: DESO<br><button onclick="openInfo(\'DESO\')">Info</button> <button onclick="openReviews(\'DESO\')">Reviews</button>');
     L.marker([24.63, -82.87]).addTo(map)
-      .bindPopup('<b>Dry Tortugas National Park</b><br>This is DRTO.<br><button onclick="openInfo(\'DRTO\')">Info</button><button onclick="openReviews(\'DRTO\')">Reviews</button>');
+      .bindPopup('<b>Dry Tortugas National Park</b><br>Park Code: DRTO<br><button onclick="openInfo(\'DRTO\')">Info</button> <button onclick="openReviews(\'DRTO\')">Reviews</button>');
     L.marker([25.37, -80.88]).addTo(map)
-      .bindPopup('<b>Everglades National Park</b><br>This is EVER.<br><button onclick="openInfo(\'EVER\')">Info</button><button onclick="openReviews(\'EVER\')">Reviews</button>');
+      .bindPopup('<b>Everglades National Park</b><br>Park Code: EVER<br><button onclick="openInfo(\'EVER\')">Info</button> <button onclick="openReviews(\'EVER\')">Reviews</button>');
     L.marker([29.71, -81.24]).addTo(map)
-      .bindPopup('<b>Fort Matanzas National Monument</b><br>This is FOMA.<br><button onclick="openInfo(\'FOMA\')">Info</button><button onclick="openReviews(\'FOMA\')">Reviews</button>');
+      .bindPopup('<b>Fort Matanzas National Monument</b><br>Park Code: FOMA<br><button onclick="openInfo(\'FOMA\')">Info</button> <button onclick="openReviews(\'FOMA\')">Reviews</button>');
     L.marker([30.32, -87.23]).addTo(map)
-      .bindPopup('<b>Gulf Islands National Seashore</b><br>This is GUIS.<br><button onclick="openInfo(\'GUIS\')">Info</button><button onclick="openReviews(\'GUIS\')">Reviews</button>');
+      .bindPopup('<b>Gulf Islands National Seashore</b><br>Park Code: GUIS<br><button onclick="openInfo(\'GUIS\')">Info</button> <button onclick="openReviews(\'GUIS\')">Reviews</button>');
     L.marker([30.47, -81.50]).addTo(map)
-      .bindPopup('<b>Timucuan Ecological & Historic Preserve</b><br>This is TIMU.<br><button onclick="openInfo(\'TIMU\')">Info</button><button onclick="openReviews(\'TIMU\')">Reviews</button>');
+      .bindPopup('<b>Timucuan Ecological & Historic Preserve</b><br>Park Code: TIMU<br><button onclick="openInfo(\'TIMU\')">Info</button> <button onclick="openReviews(\'TIMU\')">Reviews</button>');
   </script>
 
 
