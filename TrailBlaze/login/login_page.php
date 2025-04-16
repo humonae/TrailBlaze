@@ -6,21 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="css/style.css">
-<script>
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-        const usernameInput = document.getElementById('username');
-        const passwordInput = document.getElementById('password');
-        const errorDiv = document.getElementById('loginError');
-
-        if (!usernameInput.value.trim() || !passwordInput.value.trim()) {
-            event.preventDefault();
-            errorDiv.textContent = 'Please enter both username/email and password.';
-            errorDiv.style.display = 'block';
-        } else {
-            errorDiv.style.display = 'none';
-        }
-    });
-</script>
 </head>
 <body>
 <div class="container">
@@ -48,7 +33,7 @@
         </div>
         <button type="submit" class="btn">Login</button>
     </form>
-    <p>Don't have an account? <a href="signup_page.php">Sign up here</a></p>
+    <p>Don't have an account? <a href="signup_page.php" class="a1">Sign up here</a></p>
     <div id="loginError" class="error-message" style="display:none;"></div>
 </div>
 </body>
