@@ -1,10 +1,7 @@
 <!DOCTYPE html>
     <html lang="en">
         <head>
-            <meta charset="UTF-8">
-            <!-- Bootstrap CSS -->
-            <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-            
+            <meta charset="UTF-8">            
             <!--Scripts-->
             <script src="../js/NPS.js"></script>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -12,50 +9,85 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.bundle.min.js"></script>
             <script>
-                async function load() {
-                    const bgImages = {
-                        "EVER": "https://img.freepik.com/free-photo/boat-forest-river-blue-sky-reflection_1150-10799.jpg?t=st=1744290583~exp=1744294183~hmac=4bdb405c3bbe2b1ef2f05ec0287192c5893d2d521186a6bdcae2a4567b8753ac&w=1380", 
+                const bgImages = {
+                        "EVER": "https://content.vistana.com/files/live/sites/vistana-digital-content-manager/files/images/vacation-ideas/mvc/featured/2021-05-may-everglades-feat.jpeg", 
                         "BISC": "https://www.nps.gov/npgallery/GetAsset/ccb7c72d-1dd8-b71b-0b2a-e3c9a3d5b103/proxy/hires?", 
                         "DRTO": "https://www.drytortugas.com/wp-content/uploads/2020/02/dry-tortugas.jpg", 
                         "CANA": "https://www.nps.gov/cana/planyourvisit/images/IMG_0029_5.JPG", 
-                        "DESO": "", 
+                        "DESO": "https://npf-prod.imgix.net/uploads/Memorial_Trail_De_Soto_National_Memorial_2022-06-13-204123_kqyx.jpg?auto=compress%2Cformat&fit=max&q=80&w=1600", 
                         "TIMU": "https://www.nps.gov/npgallery/GetAsset/f7cfa68c-1dd8-b71b-0b80-cbfa6517143e/proxy/hires?", 
                         "BICY": "https://www.nps.gov/npgallery/GetAsset/cfc3173a-87db-4f05-b1eb-d23c2cea04ca/proxy/hires?", 
                         "GUIS": "https://www.nps.gov/npgallery/GetAsset/ed4925d0-bd02-4e33-9ecc-ef5597ff4c1e/proxy/hires?", 
-                        "FOMA": ""
+                        "FOMA": "https://www.nps.gov/npgallery/GetAsset/da141448-1dd8-b71b-0b19-b6a3a679c256/proxy/hires?",
+                        "CASA": "https://www.nps.gov/npgallery/GetAsset/263aff07-1dd8-b71b-0b61-d3cfb2e6559f/proxy/hires?"
+                };
+                
+                var parks; 
+
+                async function load(overrideCode = null) {
+                    if (!parks){
+                        parks = await fetchParks();
                     }
-                    const parks = await fetchParks();
+
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const code = overrideCode || urlParams.get('parkCode');
+                    if (!code || !parks[code]) return;
+
+                    $("#jumbo").css("background-image", `url("${bgImages[code]}")`);
+                    $("#name").html("<b>" + parks[code].fullName + "</b>");
+                    $("#about").html("About " + parks[code].fullName);
+                    $("#description").html("&nbsp;&nbsp;&nbsp;&nbsp" + parks[code].description);
+                    $("#designation").html("<b>" + parks[code].designation + "</b>");
+
+                    // Clear previous images and activities
+                    $("#carouselExample .carousel-inner").empty();
+                    $("#activity-list").empty();
+
+                    parks[code].images.forEach((image, index) => {
+                        const isActive = index === 0 ? "active" : "";
+                        const carouselItem = `
+                            <div class="carousel-item ${isActive}">
+                                <img style="carousel-img" src="${image.url}" class="d-block w-100" alt="${image.altText}">
+                                <div class="carousel-caption-text"><h5>${image.caption}</h5></div>
+                            </div>
+                        `;
+                        $("#carouselExample .carousel-inner").append(carouselItem);
+                    });
+
+                    parks[code].activities.forEach(act => {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item';
+                        li.textContent = act.name;
+                        document.getElementById('activity-list').appendChild(li);
+                    });
+
+                    const hours = parks[code].operatingHours?.[0]?.standardHours || {};
+                    $("#op_desc").text(parks[code].operatingHours?.[0]?.description || "Operating hours are not available.");
+                    $("#sun").text(hours.sunday || "N/A");
+                    $("#mon").text(hours.monday || "N/A");
+                    $("#tue").text(hours.tuesday || "N/A");
+                    $("#wed").text(hours.wednesday || "N/A");
+                    $("#thu").text(hours.thursday || "N/A");
+                    $("#fri").text(hours.friday || "N/A");
+                    $("#sat").text(hours.saturday || "N/A");
+                }
+
+                load();
+
+                $(document).on('click', '.park-link', function (e) {
+                    e.preventDefault(); // stop full reload
+                    const code = $(this).data('park');
+                    history.pushState(null, '', '?parkCode=' + code); // update URL without reload
+                    load(code); // manually call load with new parkCode
+                });
+
+                window.onpopstate = function () {
                     const urlParams = new URLSearchParams(window.location.search);
                     const code = urlParams.get('parkCode');
-                    const park = parks[code];
-                    console.log(code);
-                    console.log("ok:",park)
-                    $( document ).ready(function() {
-                        $("#jumbo").css({
-                        "background-image": 'url("' + bgImages[code] + '")',});
-                        $("#name").text(parks[code].fullName);
-                        $("#about").html("About " + parks[code].fullName);
-                        $("#description").html("&nbsp;&nbsp;&nbsp;&nbsp" + parks[code].description);
-                        $("#designation").text(parks[code].designation);
-                    
-                        const carouselInner = $("#carouselExample .carousel-inner");
-                        parks[code].images.forEach((image, index) => {
-                            // Create a new carousel item
-                            const isActive = index === 0 ? "active" : ""; // Make the first item active
-                            const carouselItem = `
-                                <div class="carousel-item ${isActive}">
-                                    <img style="carousel-img" src="${image.url}" class="d-block w-100" alt="${image.altText}">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>${image.caption}</h5>
-                                    </div>
-                                </div>
-                            `;
-                            carouselInner.append(carouselItem);  // Append to the carousel-inner
-                        });
-                    
-                    });
-                }
-                load();
+                    load(code);
+                };
+
+
             </script>
 
             <title>TrailBlaze</title>
@@ -63,58 +95,65 @@
         </head>
 
         <body>
-            <nav class="navbar justify-content-center">TrailBlaze</nav>
-
-            <div id="jumbo" class="jumbotron text-center justify-content-center">
-                <h3 class="display-6 text-align-center" style="color: white;">FLORIDA'S NATIONAL PARKS</h3>
-                <h1 id="name" style="color: white;" class="display-1 text-align-center"></h1>
-                <p id="designation" style="color: white;" class="lead" ><b></b></p>
+            
+            <div id="jumbo" class="jumbotron text-center justify-content-center" style="border-radius:0px;">
+                <a href="../map/map.php" id="back-link">← Return to map</a>
+                <h3 class="display-6 text-align-center text-shadow" style="color: white;">FLORIDA'S NATIONAL PARKS</h3>
+                <h1 id="name" style="color: white;" class="display-1 text-align-center text-shadow"></h1>
+                <p id="designation" style="color: white;" class="lead text-shadow" ><b></b></p>
                 <div>
                     <nav class="navbar navbar-expand-lg navbar-light bg-light" style=" margin:auto; max-width: fit-content">
                         <ul class="navbar-nav d-flex flex-row flex-nowrap">
                           <li class=""> <!--nav-item active-->
-                            <a class="nav-link" href="#">EVERGLADES</a>
+                            <a class="nav-link" href="?parkCode=EVER">EVERGLADES</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">BISCAYNE</a>
+                            <a class="nav-link" href="?parkCode=BISC">BISCAYNE</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">DRY TORTUGAS</a>
+                            <a class="nav-link" href="?parkCode=DRTO">DRY TORTUGAS</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">CANAVERAL</a>
+                            <a class="nav-link" href="?parkCode=CANA">CANAVERAL</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">BIG CYPRESS</a>
+                            <a class="nav-link" href="?parkCode=BICY">BIG CYPRESS</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">TIMUCUAN</a>
+                            <a class="nav-link" href="?parkCode=TIMU">TIMUCUAN</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">DE SOTO</a>
+                            <a class="nav-link" href="?parkCode=DESO">DE SOTO</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">GULF ISLANDS</a>
+                            <a class="nav-link" href="?parkCode=GUIS">GULF ISLANDS</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">FORT MATANZAS</a>
+                            <a class="nav-link" href="?parkCode=FOMA">FORT MATANZAS</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="?parkCode=CASA">CASTILLO</a>
                           </li>
                         </ul>
                       </nav>
                 </div>
             </div>
            
-             <div class="parkBody" style="max-width: 45%; margin:auto;"> 
+             <div class="parkBody" style="max-width: 52%; margin:auto;"> 
                 <!-- Description -->
-                <section>
+                <div>
                     <h3 id="about"></h3>
-                    <p id="description"style=""></p>
-                </section>
+                    <hr>
+                    <p id="description"></p>
+                </div>
+                
                 <div id="alert"></div>
+
                 <!-- Gallery -->
-                <section>
+                <div class="gallery-section">
                     <h3>Gallery</h3>
-                    <div id="carouselExample" class="carousel slide" data-ride="carousel">
+                    <hr>
+                    <div id="carouselExample" class="carousel slide" data-ride="carousel" style="height:750px;">
                         <div class="carousel-inner">
                         </div>
                         <!-- Controls -->
@@ -127,33 +166,28 @@
                             <span class="sr-only">Next</span>
                         </a>
                         </div>
-                </section>
+                </div>
+                <hr>
 
-                <section>
+                <div class="activities-section">
                     <h3>Things to Do</h3>
-                    <div>
-                        Coming Soon
-                        <div>
-                        
-                        </div>
-                        <div>
-                            
-                        </div>
-                        <div>
-                            
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Plan Your Visit</h2>
-                    <p> Coming Soon</p>
-                </section>
+                    <ul id="activity-list" class="scrollable-list"></ul>
+                </div>
+                <hr>
                 
-                <button type="button" class="btn btn-primary">Favorite</button>
+                <div class="operating-hours-section">
+                    <h2>Operating Hours</h2>
+                    <p id="op_desc"></p>
+                    <p class="day">Sunday: <span id="sun"></span></p>
+                    <p class="day">Monday: <span id="mon"></span></p>
+                    <p class="day">Tuesday: <span id="tue"></span></p>
+                    <p class="day">Wednesday: <span id="wed"></span></p>
+                    <p class="day">Thursday: <span id="thu"></span></p>
+                    <p class="day">Friday: <span id="fri"></span></p>
+                    <p class="day">Saturday: <span id="sat"></span></p>
+                </div>
 
              </div>
-
-</div>
+			 
         </body>
     </html>

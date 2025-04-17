@@ -1,4 +1,19 @@
-const apiProxyUrl = 'https://cise.ufl.edu/~clark.samuel/TrailBlaze/js/nps_proxy.php'; // Use HTTPS
+const apiProxyUrl = 'https://cise.ufl.edu/~mplummer1/TrailBlaze/js/nps_proxy.php'; // Use HTTPS
+
+async function fetchParks() {
+    const parkCodes = ["EVER", "BISC", "DRTO", "CANA", "DESO", "TIMU", "BICY", "GUIS", "FOMA", "CASA"];
+    try {
+        const results = await Promise.all(parkCodes.map(fetchParkInfo));
+        const Parks = {};
+        parkCodes.forEach((code, index) => {
+            Parks[code] = results[index];   
+        });
+        return Parks;
+    } catch (error) {
+        console.error('Error fetching park list:', error);
+        return null;
+    } 
+}
 
 async function fetchParkInfo(parkCode) {
     try {

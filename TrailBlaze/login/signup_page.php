@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
 <div class="container">
     <h1>TrailBlaze</h1>
     <h2>Sign Up</h2>

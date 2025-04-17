@@ -8,7 +8,7 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 // Secure API key
-$apiKey = 'A4SyIUy4hdNawnXB83vtkQS4IBB2vo9CZYd3SgVW';
+$apiKey = '';
 
 // Get the park code from the request
 if (!isset($_GET['parkCode'])) {
